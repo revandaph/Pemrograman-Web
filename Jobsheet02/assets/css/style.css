@@ -7,13 +7,13 @@
 
 body {
     font-family: "Segoe UI", Arial, sans-serif;
-    color: #2b2b2b;
-    background-color: #f5f6f8;
+    color: #2c1810;
+    background-color: #f8f5f2;
     line-height: 1.5;
 }
 
 a {
-    color: #1d5b8a;
+    color: #5c3d2e;
     text-decoration: none;
 }
 
@@ -23,7 +23,7 @@ a:hover {
 
 /* ===== Header & Navbar (Flexbox) ===== */
 header {
-    background-color: #1d5b8a;
+    background-color: #5c3d2e;
     color: #fff;
     padding: 1rem 1.5rem;
     display: flex;
@@ -64,18 +64,18 @@ section {
 
 section h2 {
     margin-bottom: 1rem;
-    color: #1d5b8a;
+    color: #5c3d2e;
 }
 
 /* ===== Kartu Statistik (CSS Grid) ===== */
 main section:nth-of-type(2) {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
 }
 
 main section:nth-of-type(2) article {
-    background-color: #eef4fa;
+    background-color: #f2ebe4;
     border-radius: 8px;
     padding: 1.25rem;
     text-align: center;
@@ -83,14 +83,14 @@ main section:nth-of-type(2) article {
 
 main section:nth-of-type(2) article h3 {
     font-size: 0.95rem;
-    color: #55677a;
+    color: #7a6865;
     margin-bottom: 0.5rem;
 }
 
 main section:nth-of-type(2) article p {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #1d5b8a;
+    color: #5c3d2e;
 }
 
 /* ===== Tabel ===== */
@@ -106,34 +106,42 @@ th, td {
 }
 
 thead {
-    background-color: #1d5b8a;
+    background-color: #5c3d2e;
     color: #fff;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f7f9fb;
+    background-color: #fcfbfa;
 }
 
 tbody tr:hover {
-    background-color: #eef4fa;
+    background-color: #f2ebe4;
 }
 
-td button {
+td button, td .btn {
+    display: inline-block;
     padding: 0.35rem 0.7rem;
     margin-right: 0.35rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.85rem;
+    text-align: center;
 }
 
-td button:first-of-type {
-    background-color: #f0ad4e;
+/* Style Tombol spesifik berbasis class agar tidak bentrok posisi */
+td .btn-edit, td button:first-of-type {
+    background-color: #d97706;
     color: #fff;
 }
 
-td button:last-of-type {
-    background-color: #d9534f;
+td .btn-detail {
+    background-color: #8b5e3c;
+    color: #fff;
+}
+
+td .btn-delete, td button:last-of-type {
+    background-color: #b91c1c;
     color: #fff;
 }
 
@@ -160,7 +168,7 @@ form select {
 }
 
 form button[type="submit"] {
-    background-color: #1d5b8a;
+    background-color: #5c3d2e;
     color: #fff;
     border: none;
     padding: 0.6rem 1.5rem;
@@ -170,13 +178,13 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-    background-color: #164869;
+    background-color: #422b20;
 }
 
 /* ===== Footer ===== */
 footer {
     text-align: center;
     padding: 1.25rem;
-    color: #7a8794;
+    color: #8c7b75;
     font-size: 0.9rem;
 }
