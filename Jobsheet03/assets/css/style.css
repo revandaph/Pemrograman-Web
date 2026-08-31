@@ -162,7 +162,7 @@ main section:nth-of-type(2) article p {
 }
 
 /* ===== Tabel ===== */
-.table-responsive {
+.table-responsive, pre {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -178,6 +178,13 @@ th, td {
     text-align: left;
     padding: 0.65rem 0.75rem;
     border-bottom: 1px solid #e2e6ea;
+}
+
+pre {
+    background-color: #2c1810;
+    color: #f8f5f2;
+    padding: 1rem;
+    border-radius: 6px;
 }
 
 thead {
@@ -265,6 +272,31 @@ footer {
 }
 
 /* ===== Media Queries ===== */
+@media (max-width: 900px) {
+    .nav-toggle-label {
+        display: block;
+    }
+
+    header nav {
+        display: none;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .nav-toggle:checked ~ nav {
+        display: block;
+    }
+
+    main section:nth-of-type(2) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (min-width: 1400px) {
     main {
         max-width: 1300px;
