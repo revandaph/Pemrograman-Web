@@ -21,7 +21,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* ===== Header & Navbar (Flexbox) ===== */
+/* ===== Header & Navbar ===== */
 header {
     background-color: #5c3d2e;
     color: #fff;
@@ -37,63 +37,29 @@ header h1 {
     font-size: 1.4rem;
 }
 
-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1.25rem;
-}
-
-header nav a {
-    color: #fff;
-    font-weight: 500;
-}
-
-.nav-toggle {
+.nav-toggle,
+header input[type="checkbox"] {
     display: none;
 }
 
 .nav-toggle-label {
-    display: none;
+    display: block;
     font-size: 1.5rem;
     cursor: pointer;
     color: #fff;
 }
 
-/* ===== Tampilan Layar HP / Sempit (Responsive Toggle) ===== */
-@media (max-width: 768px) {
-
-    .nav-toggle-label {
-        display: block;
-    }
-
-    header nav {
-        display: none;
-        width: 100%;
-        margin-top: 1rem;
-    }
-
-    header nav ul {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    .nav-toggle:checked ~ nav {
-        display: block;
-    }
-}
-
-header input[type="checkbox"] {
+header nav {
     display: none;
-}
-
-header h1 {
-    font-size: 1.4rem;
+    width: 100%;
+    margin-top: 1rem;
 }
 
 header nav ul {
     list-style: none;
     display: flex;
-    gap: 1.25rem;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 header nav a {
@@ -101,17 +67,21 @@ header nav a {
     font-weight: 500;
 }
 
+.nav-toggle:checked ~ nav {
+    display: block;
+}
+
 /* ===== Main Layout ===== */
 main {
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
+    width: 100%;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
 }
 
 section {
     background-color: #fff;
     border-radius: 8px;
-    padding: 1.5rem;
+    padding: 1.25rem;
     margin-bottom: 1.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
@@ -121,21 +91,11 @@ section h2 {
     color: #5c3d2e;
 }
 
-/* ===== Kartu Statistik (CSS Grid) ===== */
-main section:nth-of-type(2) {
-    display: flex;
-    flex-direction: column;
-}
-
-main section:nth-of-type(2) h2 {
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
+/* ===== Kartu Statistik ===== */
 main section:nth-of-type(2) {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
 }
 
 main section:nth-of-type(2) h2 {
@@ -145,18 +105,18 @@ main section:nth-of-type(2) h2 {
 main section:nth-of-type(2) article {
     background-color: #f2ebe4;
     border-radius: 8px;
-    padding: 1.25rem;
+    padding: 1rem;
     text-align: center;
 }
 
 main section:nth-of-type(2) article h3 {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: #7a6865;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
 }
 
 main section:nth-of-type(2) article p {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #5c3d2e;
 }
@@ -178,13 +138,6 @@ th, td {
     text-align: left;
     padding: 0.65rem 0.75rem;
     border-bottom: 1px solid #e2e6ea;
-}
-
-pre {
-    background-color: #2c1810;
-    color: #f8f5f2;
-    padding: 1rem;
-    border-radius: 6px;
 }
 
 thead {
@@ -211,7 +164,6 @@ td button, td .btn {
     text-align: center;
 }
 
-/* Style Tombol spesifik berbasis class agar tidak bentrok posisi */
 td .btn-edit, td button:first-of-type {
     background-color: #d97706;
     color: #fff;
@@ -225,6 +177,13 @@ td .btn-detail {
 td .btn-delete, td button:last-of-type {
     background-color: #b91c1c;
     color: #fff;
+}
+
+pre {
+    background-color: #2c1810;
+    color: #f8f5f2;
+    padding: 1rem;
+    border-radius: 6px;
 }
 
 /* ===== Form ===== */
@@ -272,28 +231,39 @@ footer {
 }
 
 /* ===== Media Queries ===== */
-@media (max-width: 900px) {
+@media (min-width: 900px) {
     .nav-toggle-label {
-        display: block;
+        display: none;
     }
 
     header nav {
-        display: none;
-        width: 100%;
-        margin-top: 1rem;
+        display: block !important;
+        width: auto;
+        margin-top: 0;
     }
 
     header nav ul {
-        flex-direction: column;
-        gap: 0.75rem;
+        flex-direction: row;
+        gap: 1.25rem;
     }
 
-    .nav-toggle:checked ~ nav {
-        display: block;
+    main {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
     }
 
     main section:nth-of-type(2) {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+    }
+
+    main section:nth-of-type(2) article h3 {
+        font-size: 0.95rem;
+    }
+
+    main section:nth-of-type(2) article p {
+        font-size: 1.8rem;
     }
 }
 
