@@ -17,14 +17,28 @@ merancang wireframe untuk halaman-halaman tersebut sebelum diimplementasikan.
 [Dashboard] -> [Menu "Pengembalian"] -> [Cari transaksi aktif (nama anggota/judul buku)]
    -> [Tandai "Dikembalikan"] -> [Stok buku bertambah 1] -> [Kembali ke Dashboard]
 
-# Wireframe teks Halaman Login
+# (Latihan No.2) Gambar User Flow: Petugas Mencari Anggota Bertunggakan
+[Petugas Login] -> [Dashboard] -> [Pilih menu "Riwayat Peminjaman"]
+   -> [Ketik nama anggota di kolom cari] -> [Sistem filter transaksi berstatus "Dipinjam"]
+   -> [Bandingkan tanggal pinjam dgn batas waktu] -> [Tandai anggota bertunggakan]
+   -> [Kembali ke Dashboard]
+
+# (Latihan No.1) Wireframe teks Halaman Login
 +--------------------------------------+
 |              SIMPUS-Mini             |
 |--------------------------------------|
-|          [ Login Petugas ]           |
-|   Username : [______________]        |
-|   Password : [______________]        |
-|            [   Masuk   ]             |
+|                                      |
+|       [ Registrasi Anggota Baru ]    |
+|                                      |
+|   Nama Lengkap   : [______________]  |
+|   Alamat         : [______________]  |
+|   No. HP         : [______________]  |
+|   Email          : [______________]  |
+|   Buat Password  : [______________]  |
+|                                      |
+|          [   Daftar Sekarang   ]     |
+|                                      |
+|   Sudah jadi anggota? Masuk di sini  |
 +--------------------------------------+
 
 # Wireframe Dashboard Petugas
@@ -62,3 +76,8 @@ merancang wireframe untuk halaman-halaman tersebut sebelum diimplementasikan.
 - warna, tipografi, dan gaya tabel/kartu di wireframe ini sudah mengikuti assets/css/style.css yang sudah saya bangun yaitu (warna coklat header #5c3d2e, background krem #f8f5f2, kartu statistik di section kedua index.html, style tombol .btn-edit/.btn-detail/.btn-delete di tabel).
 - Navbar akan ditambah menu **Peminjaman** dan indikator status login (nama petugas / tombol Logout) mulai implementasi di Jobsheet 10.
 - Edge case yang perlu ditangani saat implementasi: buku stok habis tidak boleh dipilih di form peminjaman; anggota dengan tunggakan terlambat divalidasi di Jobsheet 12 (tugas mandiri).
+
+# (Latihan No.3) Edge Case Tambahan
+- Buku sama dipinjam anggota sama 2x berturut-turut — sistem harus cek dulu apakah anggota tersebut masih punya transaksi aktif utk buku yang sama; kalau iya, tombol "Simpan" di form Peminjaman ditolak/muncul pesan error.
+- Anggota baru daftar tapi No. HP/Email sudah pernah dipakai anggota lain — perlu validasi supaya gak ada data anggota duplikat/kembar.
+- Petugas coba akses halaman Dashboard lewat URL langsung tanpa login — harus di-redirect otomatis ke halaman Login (bagian dari "otorisasi" yang dibahas bab 4)
