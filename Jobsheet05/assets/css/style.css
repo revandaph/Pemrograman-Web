@@ -37,13 +37,10 @@ header h1 {
     font-size: 1.4rem;
 }
 
-.nav-toggle,
-header input[type="checkbox"] {
-    display: none;
-}
-
-.nav-toggle-label {
+#nav-toggle-btn {
     display: block;
+    background: none;
+    border: none;
     font-size: 1.5rem;
     cursor: pointer;
     color: #fff;
@@ -67,7 +64,7 @@ header nav a {
     font-weight: 500;
 }
 
-.nav-toggle:checked ~ nav {
+header nav.nav-open {
     display: block;
 }
 
@@ -232,7 +229,7 @@ footer {
 
 /* ===== Media Queries ===== */
 @media (min-width: 900px) {
-    .nav-toggle-label {
+    #nav-toggle-btn {
         display: none;
     }
 
