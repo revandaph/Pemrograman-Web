@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/data-loader.js"></script>
 </head>
 <body>
     <header>
@@ -26,96 +27,25 @@
         <section>
             <h2>Daftar Buku</h2>
             <div class="table-responsive">
-                <input type="search" id="search-input" placeholder="Cari buku berdasarkan pengarang...">
+                <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
+                    <input type="search" id="search-input" placeholder="Cari buku berdasarkan judul..." style="margin-bottom: 0;">
+                    <button type="button" id="btn-reload" style="padding: 0.55rem 1rem; background-color: #5c3d2e; color: white; border: none; border-radius: 4px; cursor: pointer;">Muat Ulang</button>
+                </div>
                 <p id="table-counter"></p>
-                <table>
+                <div id="loading-indicator" style="display: none; padding: 0.5rem 0; color: #5c3d2e; font-weight: 600;">Memuat data...</div>
+                <table id="tabel-buku">
                     <thead>
                         <tr>
                             <th>Judul</th>
                             <th>Pengarang</th>
                             <th>Tahun</th>
                             <th>Stok</th>
+                            <th>Kategori</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Laskar Pelangi</td>
-                            <td>Andrea Hirata</td>
-                            <td>2005</td>
-                            <td>4</td>
-                            <td>
-                                <button type="button" class="btn-edit">Edit</button>
-                                <button type="button" class="btn-detail">Detail</button>
-                                <button type="button" class="btn-hapus">Hapus</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Bumi Manusia</td>
-                            <td>Pramoedya Ananta Toer</td>
-                            <td>1980</td>
-                            <td>2</td>
-                            <td>
-                                <button type="button" class="btn-edit">Edit</button>
-                                <button type="button" class="btn-detail">Detail</button>
-                                <button type="button" class="btn-hapus">Hapus</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Negeri 5 Menara</td>
-                            <td>Ahmad Fuadi</td>
-                            <td>2009</td>
-                            <td>0</td>
-                            <td>
-                                <button type="button" class="btn-edit">Edit</button>
-                                <button type="button" class="btn-detail">Detail</button>
-                                <button type="button" class="btn-hapus">Hapus</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Filosofi Teras</td>
-                            <td>Henry Manampiring</td>
-                            <td>2018</td>
-                            <td>5</td>
-                            <td>
-                                <button type="button" class="btn-edit">Edit</button>
-                                <button type="button" class="btn-detail">Detail</button>
-                                <button type="button" class="btn-hapus">Hapus</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ronggeng Dukuh Paruk</td>
-                            <td>Ahmad Tohari</td>
-                            <td>1982</td>
-                            <td>1</td>
-                            <td>
-                                <button type="button" class="btn-edit">Edit</button>
-                                <button type="button" class="btn-detail">Detail</button>
-                                <button type="button" class="btn-hapus">Hapus</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Negeri Para Bedebah</td>
-                            <td>Tere Liye</td>
-                            <td>2012</td>
-                            <td>7</td>
-                            <td>
-                                <button type="button" class="btn-edit">Edit</button>
-                                <button type="button" class="btn-detail">Detail</button>
-                                <button type="button" class="btn-hapus">Hapus</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Jika Aku Mereka</td>
-                            <td>12 Pemenang Sayembara Menulis Kisah Disabilitas</td>
-                            <td>2014</td>
-                            <td>5</td>
-                            <td>
-                                <button type="button" class="btn-edit">Edit</button>
-                                <button type="button" class="btn-detail">Detail</button>
-                                <button type="button" class="btn-hapus">Hapus</button>
-                            </td>
-                        </tr>
+                        <!-- Diisi dinamis oleh data-loader.js -->
                     </tbody>
                 </table>
             </div>
