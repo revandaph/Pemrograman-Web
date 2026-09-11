@@ -8,10 +8,9 @@ async function muatDataTabel(urlJson, idTabel, keys, delayMs = 3000) {
     if (!tbody) return;
 
     if (loading) loading.style.display = "block";
-    tbody.innerHTML = ""; // Kosongkan tbody terlebih dahulu
+    tbody.innerHTML = ""; 
 
     try {
-        // Simulasi delay jaringan (3000ms / 3 detik)
         await new Promise(resolve => setTimeout(resolve, delayMs));
 
         const response = await fetch(urlJson);
@@ -24,10 +23,8 @@ async function muatDataTabel(urlJson, idTabel, keys, delayMs = 3000) {
         data.forEach(item => {
             const tr = document.createElement("tr");
 
-            // Generasi td dinamis berdasarkan array keys
             let cellsHtml = keys.map(key => `<td>${item[key] ?? "-"}</td>`).join("");
 
-            // Tambah kolom aksi
             cellsHtml += `
                 <td>
                     <button type="button" class="btn-edit">Edit</button>
@@ -51,29 +48,32 @@ async function muatDataTabel(urlJson, idTabel, keys, delayMs = 3000) {
     }
 }
 
-// Fungsi pembungkus khusus Buku
 function muatDaftarBuku() {
     muatDataTabel("../data/buku.json", "tabel-buku", ["judul", "pengarang", "tahun", "stok", "kategori"]);
 }
 
-// Fungsi pembungkus khusus Anggota
 function muatDaftarAnggota() {
     muatDataTabel("../data/anggota.json", "tabel-anggota", ["no_anggota", "nama", "alamat", "no_hp", "tgl_bergabung", "email"]);
 }
 
-// Event listener saat DOM siap
 document.addEventListener("DOMContentLoaded", function () {
+    // Inisialisasi Halaman Buku
     if (document.getElementById("tabel-buku")) {
         muatDaftarBuku();
 
-        // Event handler tombol Muat Ulang
-        const btnReload = document.getElementById("btn-reload");
-        if (btnReload) {
-            btnReload.addEventListener("click", muatDaftarBuku);
+        const btnReloadBuku = document.getElementById("btn-reload");
+        if (btnReloadBuku) {
+            btnReloadBuku.addEventListener("click", muatDaftarBuku);
         }
     }
 
+    // Inisialisasi Halaman Anggota
     if (document.getElementById("tabel-anggota")) {
         muatDaftarAnggota();
+
+        const btnReloadAnggota = document.getElementById("btn-reload-anggota");
+        if (btnReloadAnggota) {
+            btnReloadAnggota.addEventListener("click", muatDaftarAnggota);
+        }
     }
 });
