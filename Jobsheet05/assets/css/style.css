@@ -46,10 +46,14 @@ header h1 {
     color: #fff;
 }
 
+/* Transisi halus saat toggle nav (animasi slide/fade) */
 header nav {
-    display: none;
     width: 100%;
-    margin-top: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+    margin-top: 0;
 }
 
 header nav ul {
@@ -65,7 +69,9 @@ header nav a {
 }
 
 header nav.nav-open {
-    display: block;
+    max-height: 300px;
+    opacity: 1;
+    margin-top: 1rem;
 }
 
 /* ===== Main Layout ===== */
@@ -118,7 +124,7 @@ main section:nth-of-type(2) article p {
     color: #5c3d2e;
 }
 
-/* ===== Tabel ===== */
+/* ===== Tabel & Counter ===== */
 .table-responsive, pre {
     width: 100%;
     overflow-x: auto;
@@ -132,6 +138,13 @@ main section:nth-of-type(2) article p {
     border: 1px solid #cdd4da;
     border-radius: 4px;
     font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+#table-counter {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #5c3d2e;
     margin-bottom: 1rem;
 }
 
@@ -198,7 +211,7 @@ pre {
     border-radius: 6px;
 }
 
-/* ===== Form ===== */
+/* ===== Form & Error Text ===== */
 form p {
     margin-bottom: 1rem;
 }
@@ -218,6 +231,13 @@ form select {
     border: 1px solid #cdd4da;
     border-radius: 4px;
     font-size: 1rem;
+}
+
+.error {
+    color: #b91c1c;
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 0.25rem;
 }
 
 form button[type="submit"] {
@@ -250,8 +270,10 @@ footer {
 
     header nav {
         display: block !important;
+        max-height: none !important;
+        opacity: 1 !important;
         width: auto;
-        margin-top: 0;
+        margin-top: 0 !important;
     }
 
     header nav ul {
