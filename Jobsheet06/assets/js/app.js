@@ -26,8 +26,12 @@ function updateTableCounter() {
 // ===== Konfirmasi Hapus Data (Event Delegation) =====
 function initHapusConfirm() {
     document.addEventListener("click", function (e) {
-        if (e.target && e.target.classList.contains("btn-hapus")) {
-            const row = e.target.closest("tr");
+        // Arahan No. 4: Log elemen apa saja di halaman yang diklik
+        console.log("Elemen yang diklik (e.target):", e.target);
+
+        const btnHapus = e.target.closest(".btn-hapus");
+        if (btnHapus) {
+            const row = btnHapus.closest("tr");
             const nama = row ? row.querySelector("td")?.textContent : "data ini";
             const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
             if (yakin && row) {
