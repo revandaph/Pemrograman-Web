@@ -5,7 +5,7 @@ include '../includes/header.php';
 
         <section>
             <h2>Tambah Anggota</h2>
-            <form action="proses_tambah.php" method="post" id="form-tambah">
+            <form form action="proses_tambah.php" method="post" id="form-tambah" novalidate>                
                 <p>
                     <label for="nama">Nama</label><br>
                     <input type="text" id="nama" name="nama" required>
