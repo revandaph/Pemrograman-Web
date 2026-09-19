@@ -31,6 +31,7 @@ $page_title = $page_title ?? 'SIMPUS-Mini';
                 <li><a href="<?= $base ?>buku/tambah.php">Tambah Buku</a></li>
                 <li><a href="<?= $base ?>anggota/list.php">Daftar Anggota</a></li>
                 <li><a href="<?= $base ?>anggota/tambah.php">Tambah Anggota</a></li>
+                <li><a href="<?= $base ?>reset_session.php" onclick="return confirm('Yakin ingin mereset seluruh data session?');" style="color: #ffcccc;">Reset Data</a></li>
             </ul>
         </nav>
         <button type="button" id="nav-toggle-btn" aria-label="Buka menu">&#9776;</button>
