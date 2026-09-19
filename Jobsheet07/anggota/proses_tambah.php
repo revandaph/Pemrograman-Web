@@ -8,10 +8,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $no_hp = trim($_POST['no_hp'] ?? '');
     $email = trim($_POST['email'] ?? '');
 
+    // Validasi Wajib Isi
     if (empty($nama) || empty($no_anggota)) {
         $_SESSION['flash'] = [
             'type' => 'error',
             'message' => 'Gagal! Nama dan No. Anggota wajib diisi.'
+        ];
+        header("Location: tambah.php");
+        exit;
+    }
+
+    // Modifikasi: Validasi Format Email
+    if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['flash'] = [
+            'type' => 'error',
+            'message' => 'Gagal! Format alamat email tidak valid.'
         ];
         header("Location: tambah.php");
         exit;
