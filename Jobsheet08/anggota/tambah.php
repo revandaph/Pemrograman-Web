@@ -1,35 +1,23 @@
-<?php
-$page_title = "SIMPUS-Mini | Tambah Anggota";
-include '../includes/header.php';
-?>
+<?php include '../includes/header.php'; ?>
 
-        <section>
-            <h2>Tambah Anggota</h2>
-            <form form action="proses_tambah.php" method="post" id="form-tambah" novalidate>                
-                <p>
-                    <label for="nama">Nama</label><br>
-                    <input type="text" id="nama" name="nama" required>
-                </p>
-                <p>
-                    <label for="no_anggota">No. Anggota</label><br>
-                    <input type="text" id="no_anggota" name="no_anggota" required>
-                </p>
-                <p>
-                    <label for="alamat">Alamat</label><br>
-                    <input type="text" id="alamat" name="alamat">
-                </p>
-                <p>
-                    <label for="no_hp">No. HP</label><br>
-                    <input type="text" id="no_hp" name="no_hp">
-                </p>
-                <p>
-                    <label for="email">Email</label><br>
-                    <input type="email" id="email" name="email">
-                </p>
-                <p>
-                    <button type="submit">Simpan</button>
-                </p>
-            </form>
-        </section>
+<h2>Tambah Anggota Baru</h2>
+
+<form action="proses_tambah.php" method="POST">
+    <label for="nama">Nama Lengkap:</label>
+    <input type="text" id="nama" name="nama" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="telepon">Nomor Telepon:</label>
+    <input type="text" id="telepon" name="telepon" required>
+
+    <label for="alamat">Alamat:</label>
+    <textarea id="alamat" name="alamat" rows="4" required></textarea>
+
+    <br><br>
+    <button type="submit" class="btn">Simpan Anggota</button>
+    <a href="list.php" style="margin-left: 15px; color: #666; text-decoration: none;">Batal</a>
+</form>
 
 <?php include '../includes/footer.php'; ?>

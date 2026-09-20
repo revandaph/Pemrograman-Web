@@ -1,60 +1,28 @@
 <?php
-session_start();
-include '../includes/koneksi.php';
+require_once '../includes/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nama = trim($_POST['nama'] ?? '');
-    $no_anggota = trim($_POST['no_anggota'] ?? '');
-    $alamat = trim($_POST['alamat'] ?? '');
-    $no_hp = trim($_POST['no_hp'] ?? '');
-    $email = trim($_POST['email'] ?? '');
+    $nama    = trim($_POST['nama']);
+    $email   = trim($_POST['email']);
+    $telepon = trim($_POST['telepon']);
+    $alamat  = trim($_POST['alamat']);
 
-    if (empty($nama) || empty($no_anggota)) {
-        $_SESSION['flash'] = [
-            'type' => 'error',
-            'message' => 'Gagal! Nama dan No. Anggota wajib diisi.'
-        ];
-        header("Location: tambah.php");
-        exit;
-    }
-
-    if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $_SESSION['flash'] = [
-            'type' => 'error',
-            'message' => 'Gagal! Format alamat email tidak valid.'
-        ];
-        header("Location: tambah.php");
-        exit;
-    }
+    $sql = "INSERT INTO anggota (nama, email, telepon, alamat) 
+            VALUES (:nama, :email, :telepon, :alamat) 
+            RETURNING id";
 
     try {
-        $sql = "INSERT INTO anggota (no_anggota, nama, alamat, no_hp, tgl_bergabung, email) 
-                VALUES (:no_anggota, :nama, :alamat, :no_hp, CURRENT_DATE, :email) RETURNING id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
-            ':no_anggota' => $no_anggota,
-            ':nama' => $nama,
-            ':alamat' => $alamat,
-            ':no_hp' => $no_hp,
-            ':email' => $email
+            ':nama'    => $nama,
+            ':email'   => $email,
+            ':telepon' => $telepon,
+            ':alamat'  => $alamat
         ]);
 
-        $_SESSION['flash'] = [
-            'type' => 'success',
-            'message' => 'Anggota baru berhasil disimpan ke database!'
-        ];
-    } catch (PDOException $e) {
-        $_SESSION['flash'] = [
-            'type' => 'error',
-            'message' => 'Gagal menyimpan data (mungkin No. Anggota sudah terdaftar): ' . $e->getMessage()
-        ];
-        header("Location: tambah.php");
+        header('Location: list.php');
         exit;
+    } catch (PDOException $e) {
+        die("Gagal menambah anggota: " . $e->getMessage());
     }
-
-    header("Location: list.php");
-    exit;
-} else {
-    header("Location: list.php");
-    exit;
 }

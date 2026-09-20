@@ -1,57 +1,42 @@
 <?php
-$page_title = "SIMPUS-Mini | Daftar Anggota";
-include '../includes/header.php';
-include '../includes/koneksi.php';
+require_once '../includes/koneksi.php';
 
-try {
-    $stmt = $pdo->query("SELECT * FROM anggota ORDER BY id DESC");
-    $anggota_list = $stmt->fetchAll();
-} catch (PDOException $e) {
-    $anggota_list = [];
-}
+$stmt = $pdo->query("SELECT * FROM anggota ORDER BY id DESC");
+$daftar_anggota = $stmt->fetchAll();
+
+include '../includes/header.php';
 ?>
 
-<section>
-    <h2>Daftar Anggota</h2>
-    <div class="table-responsive">
-        <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
-            <input type="search" id="search-input" placeholder="Cari berdasarkan Nama..." style="margin-bottom: 0;">
-        </div>
-        <p id="table-counter">Menampilkan <?= count($anggota_list) ?> data</p>
-        <table id="tabel-anggota">
-            <thead>
+<h2>Daftar Anggota</h2>
+<a href="tambah.php" class="btn">+ Tambah Anggota Baru</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama Lengkap</th>
+            <th>Email</th>
+            <th>Telepon</th>
+            <th>Alamat</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (count($daftar_anggota) > 0): ?>
+            <?php foreach ($daftar_anggota as $anggota): ?>
                 <tr>
-                    <th>No. Anggota</th>
-                    <th>Nama</th>
-                    <th>Alamat</th>
-                    <th>No. HP</th>
-                    <th>Tanggal Bergabung</th>
-                    <th>E-mail</th>
-                    <th>Aksi</th>
+                    <td><?= htmlspecialchars($anggota['id']) ?></td>
+                    <td><?= htmlspecialchars($anggota['nama']) ?></td>
+                    <td><?= htmlspecialchars($anggota['email']) ?></td>
+                    <td><?= htmlspecialchars($anggota['telepon']) ?></td>
+                    <td><?= htmlspecialchars($anggota['alamat']) ?></td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php if (empty($anggota_list)): ?>
-                    <tr><td colspan="7" style="text-align:center;">Belum ada data anggota.</td></tr>
-                <?php else: ?>
-                    <?php foreach ($anggota_list as $row): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($row['no_anggota']) ?></td>
-                            <td><?= htmlspecialchars($row['nama']) ?></td>
-                            <td><?= htmlspecialchars($row['alamat'] ?? '-') ?></td>
-                            <td><?= htmlspecialchars($row['no_hp'] ?? '-') ?></td>
-                            <td><?= htmlspecialchars(date('d-m-Y', strtotime($row['tgl_bergabung']))) ?></td>
-                            <td><?= htmlspecialchars($row['email'] ?? '-') ?></td>
-                            <td>
-                                <button type="button" class="btn-edit">Edit</button>
-                                <button type="button" class="btn-hapus">Hapus</button>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-</section>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="5" style="text-align:center;">Belum ada data anggota.</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
 
 <?php include '../includes/footer.php'; ?>

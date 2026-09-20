@@ -1,43 +1,28 @@
 <?php
-$page_title = "SIMPUS-Mini | Beranda";
-include 'includes/header.php';
-include 'includes/koneksi.php';
+require_once 'includes/koneksi.php';
 
 try {
-    $stmt_buku = $pdo->query("SELECT COUNT(*) AS total FROM buku");
-    $total_buku = $stmt_buku->fetch()['total'];
-
-    $stmt_anggota = $pdo->query("SELECT COUNT(*) AS total FROM anggota");
-    $total_anggota = $stmt_anggota->fetch()['total'];
+    $total_buku    = $pdo->query("SELECT COUNT(*) FROM buku")->fetchColumn();
+    $total_anggota = $pdo->query("SELECT COUNT(*) FROM anggota")->fetchColumn();
 } catch (PDOException $e) {
-    $total_buku = 0;
-    $total_anggota = 0;
+    die("Gagal mengambil data statistik: " . $e->getMessage());
 }
+
+include 'includes/header.php';
 ?>
 
-<section>
-    <h2>Selamat Datang di Sistem Perpustakaan Mini</h2>
-    <p>Aplikasi sederhana untuk mengelola data buku dan anggota perpustakaan.</p>
-</section>
+<h2>Beranda SIMPUS-Mini</h2>
+<p>Selamat datang di Sistem Informasi Perpustakaan Mini berbasis PHP PDO dan PostgreSQL.</p>
 
-<section>
-    <h2>Ringkasan</h2>
-    <article>
+<div class="card-container">
+    <div class="card">
         <h3>Total Buku</h3>
-        <p><?= $total_buku ?></p>
-    </article>
-    <article>
+        <p><?= htmlspecialchars($total_buku) ?></p>
+    </div>
+    <div class="card">
         <h3>Total Anggota</h3>
-        <p><?= $total_anggota ?></p>
-    </article>
-    <article>
-        <h3>Sedang Dipinjam</h3>
-        <p>3</p>
-    </article>
-    <article>
-        <h3>Buku Rusak</h3>
-        <p>5</p>
-    </article>
-</section>
+        <p><?= htmlspecialchars($total_anggota) ?></p>
+    </div>
+</div>
 
 <?php include 'includes/footer.php'; ?>

@@ -1,46 +1,89 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-$current_dir = basename(dirname($_SERVER['SCRIPT_NAME']));
-if (in_array($current_dir, ['buku', 'anggota'])) {
-    $base = "../";
-} else {
-    $base = "";
-}
-
-$page_title = $page_title ?? 'SIMPUS-Mini';
-?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= htmlspecialchars($page_title) ?></title>
-    <link rel="stylesheet" href="<?= $base ?>assets/css/style.css">
-    <script src="<?= $base ?>assets/js/app.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPUS-Mini | Sistem Informasi Perpustakaan</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #f8f9fa; color: #333; }
+        header { 
+            background-color: #4a3525; 
+            color: white; 
+            padding: 15px 30px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            position: relative;
+        }
+        header h1 { margin: 0; font-size: 22px; white-space: nowrap; }
+        nav { display: flex; gap: 15px; }
+        nav a { color: #f8f9fa; text-decoration: none; font-weight: bold; font-size: 14px; }
+        nav a:hover { color: #ffca28; }
+
+        .burger-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 26px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .container { padding: 30px; max-width: 1000px; margin: auto; }
+        .card-container { display: flex; gap: 20px; margin-top: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1; text-align: center; }
+        .card h3 { margin-top: 0; color: #4a3525; }
+        .card p { font-size: 36px; font-weight: bold; margin: 10px 0 0; color: #333; }
+        table { width: 100%; border-collapse: collapse; background: white; margin-top: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        th, td { border: 1px solid #eee; padding: 12px; text-align: left; }
+        th { background-color: #4a3525; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .btn { display: inline-block; padding: 10px 18px; background: #4a3525; color: white; text-decoration: none; border-radius: 5px; margin-bottom: 15px; border: none; cursor: pointer; font-weight: bold; }
+        .btn:hover { background: #332419; }
+        form { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        form label { display: block; margin-top: 12px; font-weight: bold; }
+        form input, form select, form textarea { width: 100%; padding: 10px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+
+        @media (max-width: 768px) {
+            .burger-btn { display: block; }
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: #4a3525;
+                padding: 15px 30px;
+                box-sizing: border-box;
+                gap: 12px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+                z-index: 999;
+            }
+            nav.active { display: flex; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>SIMPUS-Mini</h1>
-        <nav>
-            <ul>
-                <li><a href="<?= $base ?>index.php">Beranda</a></li>
-                <li><a href="<?= $base ?>buku/list.php">Daftar Buku</a></li>
-                <li><a href="<?= $base ?>buku/tambah.php">Tambah Buku</a></li>
-                <li><a href="<?= $base ?>anggota/list.php">Daftar Anggota</a></li>
-                <li><a href="<?= $base ?>anggota/tambah.php">Tambah Anggota</a></li>
-                <li><a href="<?= $base ?>reset_session.php" onclick="return confirm('Yakin ingin mereset seluruh data session?');" style="color: #ffcccc;">Reset Data</a></li>
-            </ul>
-        </nav>
-        <button type="button" id="nav-toggle-btn" aria-label="Buka menu">&#9776;</button>
-    </header>
+<header>
+    <h1>SIMPUS-Mini</h1>
+    <button class="burger-btn" onclick="toggleMenu()">&#9776;</button>
+    <nav id="navMenu">
+        <a href="/Pemrograman-Web/Jobsheet08/index.php">Beranda</a>
+        <a href="/Pemrograman-Web/Jobsheet08/buku/list.php">Daftar Buku</a>
+        <a href="/Pemrograman-Web/Jobsheet08/buku/tambah.php">Tambah Buku</a>
+        <a href="/Pemrograman-Web/Jobsheet08/anggota/list.php">Daftar Anggota</a>
+        <a href="/Pemrograman-Web/Jobsheet08/anggota/tambah.php">Tambah Anggota</a>
+    </nav>
+</header>
 
-    <main>
-<?php if (isset($_SESSION['flash'])): ?>
-    <div style="padding: 0.75rem 1rem; margin-bottom: 1rem; border-radius: 4px; background-color: <?= $_SESSION['flash']['type'] === 'success' ? '#d1e7dd' : '#f8d7da' ?>; color: <?= $_SESSION['flash']['type'] === 'success' ? '#0f5132' : '#842029' ?>;">
-        <?= htmlspecialchars($_SESSION['flash']['message']) ?>
-    </div>
-    <?php unset($_SESSION['flash']); ?>
-<?php endif; ?>
+<script>
+function toggleMenu() {
+    var menu = document.getElementById("navMenu");
+    menu.classList.toggle("active");
+}
+</script>
+
+<div class="container">
