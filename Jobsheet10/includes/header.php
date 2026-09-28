@@ -1,13 +1,18 @@
 <?php
-$base_url = sprintf(
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$sudahLogin = isset($_SESSION['user_id']);
+
+$base = sprintf(
     "%s://%s%s/",
     isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
     $_SERVER['HTTP_HOST'],
     rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\')
 );
 
-if (basename(dirname($_SERVER['SCRIPT_NAME'])) === 'buku' || basename(dirname($_SERVER['SCRIPT_NAME'])) === 'anggota') {
-    $base_url = dirname($base_url) . '/';
+if (in_array(basename(dirname($_SERVER['SCRIPT_NAME'])), ['buku', 'anggota', 'auth'])) {
+    $base = dirname($base) . '/';
 }
 ?>
 <!DOCTYPE html>
@@ -28,21 +33,11 @@ if (basename(dirname($_SERVER['SCRIPT_NAME'])) === 'buku' || basename(dirname($_
             position: relative;
         }
         header h1 { margin: 0; font-size: 22px; white-space: nowrap; }
-        nav { display: flex; gap: 15px; }
+        nav { display: flex; gap: 15px; align-items: center; }
         nav a { color: #f8f9fa; text-decoration: none; font-weight: bold; font-size: 14px; }
         nav a:hover { color: #ffca28; }
-
-        .burger-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 26px;
-            cursor: pointer;
-            padding: 0;
-            line-height: 1;
-        }
-
+        .auth-status { display: flex; align-items: center; gap: 15px; }
+        .auth-status a { color: #ffca28; text-decoration: underline; font-weight: bold; }
         .container { padding: 30px; max-width: 1000px; margin: auto; }
         .card-container { display: flex; gap: 20px; margin-top: 20px; }
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1; text-align: center; }
@@ -57,45 +52,27 @@ if (basename(dirname($_SERVER['SCRIPT_NAME'])) === 'buku' || basename(dirname($_
         form { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         form label { display: block; margin-top: 12px; font-weight: bold; }
         form input, form select, form textarea { width: 100%; padding: 10px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-
-        @media (max-width: 768px) {
-            .burger-btn { display: block; }
-            nav {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                background-color: #4a3525;
-                padding: 15px 30px;
-                box-sizing: border-box;
-                gap: 12px;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-                z-index: 999;
-            }
-            nav.active { display: flex; }
-        }
     </style>
 </head>
 <body>
 <header>
     <h1>SIMPUS-Mini</h1>
-    <button class="burger-btn" onclick="toggleMenu()">&#9776;</button>
-    <nav id="navMenu">
-        <a href="<?= $base_url ?>index.php">Beranda</a>
-        <a href="<?= $base_url ?>buku/list.php">Daftar Buku</a>
-        <a href="<?= $base_url ?>buku/tambah.php">Tambah Buku</a>
-        <a href="<?= $base_url ?>anggota/list.php">Daftar Anggota</a>
-        <a href="<?= $base_url ?>anggota/tambah.php">Tambah Anggota</a>
+    <nav>
+        <a href="<?= $base ?>index.php">Beranda</a>
+        <a href="<?= $base ?>buku/list.php">Daftar Buku</a>
+        <?php if ($sudahLogin): ?>
+            <a href="<?= $base ?>buku/tambah.php">Tambah Buku</a>
+            <a href="<?= $base ?>anggota/list.php">Daftar Anggota</a>
+            <a href="<?= $base ?>anggota/tambah.php">Tambah Anggota</a>
+        <?php endif; ?>
     </nav>
+    <div class="auth-status">
+        <?php if ($sudahLogin): ?>
+            <span>Halo, <strong><?= htmlspecialchars($_SESSION['nama']) ?></strong></span>
+            <a href="<?= $base ?>auth/logout.php">Logout</a>
+        <?php else: ?>
+            <a href="<?= $base ?>auth/login.php">Login</a>
+        <?php endif; ?>
+    </div>
 </header>
-
-<script>
-function toggleMenu() {
-    var menu = document.getElementById("navMenu");
-    menu.classList.toggle("active");
-}
-</script>
-
 <div class="container">
