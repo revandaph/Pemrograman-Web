@@ -1,4 +1,6 @@
-<?php include '../includes/header.php'; ?>
+<?php
+require_once __DIR__ . '/../includes/auth.php';
+include '../includes/header.php'; ?>
 
 <h2>Tambah Anggota Baru</h2>
 
