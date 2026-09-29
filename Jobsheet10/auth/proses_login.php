@@ -21,6 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    $_SESSION['flash'] = [
+        'type' => 'error',
+        'pesan' => 'Username atau password salah.'
+    ];
     header('Location: login.php');
     exit;
 }

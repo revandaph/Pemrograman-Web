@@ -11,6 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     if ($nama === '' || $username === '' || strlen($password) < 6) {
+        $_SESSION['flash'] = [
+            'type' => 'error',
+            'pesan' => 'Mohon isi semua field. Password minimal 6 karakter.'
+        ];
         header('Location: register.php');
         exit;
     }
@@ -19,6 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cek->execute([':username' => $username]);
     
     if ($cek->fetch()) {
+        $_SESSION['flash'] = [
+            'type' => 'error',
+            'pesan' => 'Username sudah digunakan, silakan pilih username lain.'
+        ];
         header('Location: register.php');
         exit;
     }
@@ -30,6 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':password' => password_hash($password, PASSWORD_DEFAULT),
     ]);
 
+    $_SESSION['flash'] = [
+        'type' => 'success',
+        'pesan' => 'Registrasi berhasil! Silakan login.'
+    ];
     header('Location: login.php');
     exit;
 }

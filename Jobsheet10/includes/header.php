@@ -76,3 +76,18 @@ if (in_array(basename(dirname($_SERVER['SCRIPT_NAME'])), ['buku', 'anggota', 'au
     </div>
 </header>
 <div class="container">
+
+<?php
+// Tampilkan Notifikasi Flash jika ada
+if (isset($_SESSION['flash'])) {
+    $type   = $_SESSION['flash']['type'] === 'error' ? '#f8d7da' : '#d4edda';
+    $color  = $_SESSION['flash']['type'] === 'error' ? '#721c24' : '#155724';
+    $border = $_SESSION['flash']['type'] === 'error' ? '#f5c6cb' : '#c3e6cb';
+    
+    echo '<div style="background-color: ' . $type . '; color: ' . $color . '; border: 1px solid ' . $border . '; padding: 12px; border-radius: 5px; margin-bottom: 20px;">';
+    echo htmlspecialchars($_SESSION['flash']['pesan']);
+    echo '</div>';
+
+    unset($_SESSION['flash']);
+}
+?>
