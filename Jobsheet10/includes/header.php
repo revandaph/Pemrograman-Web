@@ -38,6 +38,16 @@ if (in_array(basename(dirname($_SERVER['SCRIPT_NAME'])), ['buku', 'anggota', 'au
         nav a:hover { color: #ffca28; }
         .auth-status { display: flex; align-items: center; gap: 15px; }
         .auth-status a { color: #ffca28; text-decoration: underline; font-weight: bold; }
+        .role-badge { 
+            background: #ffca28; 
+            color: #4a3525; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            font-size: 11px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            margin-left: 5px;
+        }
         .container { padding: 30px; max-width: 1000px; margin: auto; }
         .card-container { display: flex; gap: 20px; margin-top: 20px; }
         .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex: 1; text-align: center; }
@@ -68,7 +78,10 @@ if (in_array(basename(dirname($_SERVER['SCRIPT_NAME'])), ['buku', 'anggota', 'au
     </nav>
     <div class="auth-status">
         <?php if ($sudahLogin): ?>
-            <span>Halo, <strong><?= htmlspecialchars($_SESSION['nama']) ?></strong></span>
+            <span>
+                Halo, <strong><?= htmlspecialchars($_SESSION['nama']) ?></strong>
+                <span class="role-badge"><?= htmlspecialchars($_SESSION['role'] ?? 'petugas') ?></span>
+            </span>
             <a href="<?= $base ?>auth/logout.php">Logout</a>
         <?php else: ?>
             <a href="<?= $base ?>auth/login.php">Login</a>

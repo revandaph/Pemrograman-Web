@@ -9,10 +9,16 @@ try {
 }
 
 include 'includes/header.php';
+
+$sudahLogin = isset($_SESSION['user_id']);
 ?>
 
 <h2>Beranda SIMPUS-Mini</h2>
 <p>Selamat datang di Sistem Informasi Perpustakaan Mini berbasis PHP PDO dan PostgreSQL.</p>
+
+<?php if ($sudahLogin): ?>
+    <p>Anda masuk sebagai: <strong><?= strtoupper(htmlspecialchars($_SESSION['role'] ?? 'petugas')) ?></strong></p>
+<?php endif; ?>
 
 <div class="card-container">
     <div class="card">

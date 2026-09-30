@@ -1,5 +1,8 @@
 <?php
+require_once __DIR__ . '/../includes/auth.php';
 require_once '../includes/koneksi.php';
+
+$is_admin = ($_SESSION['role'] ?? '') === 'admin';
 
 $q = trim($_GET['q'] ?? '');
 $page = max(1, (int)($_GET['page'] ?? 1));
@@ -35,7 +38,7 @@ include '../includes/header.php';
 <a href="tambah.php" class="btn">+ Tambah Anggota Baru</a>
 
 <form method="GET" action="list.php" style="margin-bottom: 20px; padding: 10px; background: none; box-shadow: none;">
-    <input type="text" id="search-input" name="q" value="<?= $q ?>" placeholder="Cari nama / email..." style="width: 250px; display: inline-block;">
+    <input type="text" id="search-input" name="q" value="<?= htmlspecialchars($q) ?>" placeholder="Cari nama / email..." style="width: 250px; display: inline-block;">
     <button type="submit" class="btn" style="padding: 10px 15px;">Cari</button>
     <?php if ($q !== ''): ?>
         <a href="list.php" style="margin-left: 10px; text-decoration: none; color: #666;">Reset</a>
@@ -64,10 +67,13 @@ include '../includes/header.php';
                     <td><?= htmlspecialchars($anggota['alamat']) ?></td>
                     <td>
                         <a href="edit.php?id=<?= $anggota['id'] ?>" style="color: #007bff; text-decoration: none; font-weight: bold; margin-right: 10px;">Edit</a>
-                        <form action="hapus.php" method="POST" class="form-hapus" style="display: inline; padding: 0; background: none; box-shadow: none;">
-                            <input type="hidden" name="id" value="<?= $anggota['id'] ?>">
-                            <button type="submit" style="color: #dc3545; background: none; border: none; cursor: pointer; font-weight: bold; padding: 0;">Hapus</button>
-                        </form>
+                        
+                        <?php if ($is_admin): ?>
+                            <form action="hapus.php" method="POST" class="form-hapus" style="display: inline; padding: 0; background: none; box-shadow: none;">
+                                <input type="hidden" name="id" value="<?= $anggota['id'] ?>">
+                                <button type="submit" style="color: #dc3545; background: none; border: none; cursor: pointer; font-weight: bold; padding: 0;">Hapus</button>
+                            </form>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
