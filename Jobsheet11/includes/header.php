@@ -11,7 +11,7 @@ $base = sprintf(
     rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\')
 );
 
-if (in_array(basename(dirname($_SERVER['SCRIPT_NAME'])), ['buku', 'anggota', 'auth'])) {
+if (in_array(basename(dirname($_SERVER['SCRIPT_NAME'])), ['buku', 'anggota', 'auth', 'peminjaman'])) {
     $base = dirname($base) . '/';
 }
 ?>
@@ -74,6 +74,7 @@ if (in_array(basename(dirname($_SERVER['SCRIPT_NAME'])), ['buku', 'anggota', 'au
             <a href="<?= $base ?>buku/tambah.php">Tambah Buku</a>
             <a href="<?= $base ?>anggota/list.php">Daftar Anggota</a>
             <a href="<?= $base ?>anggota/tambah.php">Tambah Anggota</a>
+            <a href="<?= $base ?>peminjaman/list.php">Peminjaman</a>
         <?php endif; ?>
     </nav>
     <div class="auth-status">
