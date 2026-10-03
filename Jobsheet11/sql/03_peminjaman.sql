@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS peminjaman (
+    id SERIAL PRIMARY KEY,
+    buku_id INT NOT NULL REFERENCES buku(id) ON DELETE CASCADE,
+    anggota_id INT NOT NULL REFERENCES anggota(id) ON DELETE CASCADE,
+    tanggal_pinjam DATE NOT NULL DEFAULT CURRENT_DATE,
+    tanggal_kembali DATE NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'dipinjam',
+    denda INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
