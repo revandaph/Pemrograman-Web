@@ -2,6 +2,10 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+require_once __DIR__ . '/helpers.php';
+require_once __DIR__ . '/csrf.php';
+
 $sudahLogin = isset($_SESSION['user_id']);
 
 $base = sprintf(
@@ -80,8 +84,8 @@ if (in_array(basename(dirname($_SERVER['SCRIPT_NAME'])), ['buku', 'anggota', 'au
     <div class="auth-status">
         <?php if ($sudahLogin): ?>
             <span>
-                Halo, <strong><?= htmlspecialchars($_SESSION['nama']) ?></strong>
-                <span class="role-badge"><?= htmlspecialchars($_SESSION['role'] ?? 'petugas') ?></span>
+                Halo, <strong><?= e($_SESSION['nama']) ?></strong>
+                <span class="role-badge"><?= e($_SESSION['role'] ?? 'petugas') ?></span>
             </span>
             <a href="<?= $base ?>auth/logout.php">Logout</a>
         <?php else: ?>
@@ -98,7 +102,7 @@ if (isset($_SESSION['flash'])) {
     $border = $_SESSION['flash']['type'] === 'error' ? '#f5c6cb' : '#c3e6cb';
     
     echo '<div style="background-color: ' . $type . '; color: ' . $color . '; border: 1px solid ' . $border . '; padding: 12px; border-radius: 5px; margin-bottom: 20px;">';
-    echo htmlspecialchars($_SESSION['flash']['pesan']);
+    echo e($_SESSION['flash']['pesan']);
     echo '</div>';
 
     unset($_SESSION['flash']);
