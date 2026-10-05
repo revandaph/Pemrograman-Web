@@ -11,11 +11,13 @@ include '../includes/header.php';
 <h2>Form Peminjaman Buku</h2>
 
 <form action="proses_tambah.php" method="POST">
+    <?= csrf_field() ?>
+
     <label for="buku_id">Pilih Buku:</label>
     <select name="buku_id" id="buku_id" required>
         <option value="">-- Pilih Buku --</option>
         <?php foreach ($buku_list as $b): ?>
-            <option value="<?= $b['id'] ?>"><?= htmlspecialchars($b['judul']) ?></option>
+            <option value="<?= $b['id'] ?>"><?= e($b['judul']) ?></option>
         <?php endforeach; ?>
     </select>
 
@@ -23,7 +25,7 @@ include '../includes/header.php';
     <select name="anggota_id" id="anggota_id" required>
         <option value="">-- Pilih Anggota --</option>
         <?php foreach ($anggota_list as $a): ?>
-            <option value="<?= $a['id'] ?>"><?= htmlspecialchars($a['nama']) ?></option>
+            <option value="<?= $a['id'] ?>"><?= e($a['nama']) ?></option>
         <?php endforeach; ?>
     </select>
 
@@ -32,7 +34,7 @@ include '../includes/header.php';
 
     <br><br>
     <button type="submit" class="btn">Simpan Transaksi</button>
-    <a href="list.php" style="margin-left: 10px; color: #666;">Batal</a>
+    <a href="list.php" style="margin-left: 10px; color: #666; text-decoration: none;">Batal</a>
 </form>
 
 <?php include '../includes/footer.php'; ?>
