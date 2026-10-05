@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS users (
     role VARCHAR(20) NOT NULL DEFAULT 'petugas'
 );
 
-UPDATE users SET role = 'admin' WHERE username = 'revalindaph';
+UPDATE users SET role = 'petugas' WHERE username = 'revalindaph';
