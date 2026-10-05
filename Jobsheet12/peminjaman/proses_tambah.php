@@ -1,8 +1,11 @@
 <?php
 require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/csrf.php';
 require_once '../includes/koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_verify();
+
     $buku_id        = (int)($_POST['buku_id'] ?? 0);
     $anggota_id     = (int)($_POST['anggota_id'] ?? 0);
     $tanggal_pinjam = $_POST['tanggal_pinjam'] ?? date('Y-m-d');
@@ -22,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $_SESSION['flash'] = [
             'type' => 'error',
-            'pesan' => 'Pilih buku dan anggota dengan benar.'
+            'pesan' => 'Silakan pilih buku dan anggota yang valid.'
         ];
     }
 }
