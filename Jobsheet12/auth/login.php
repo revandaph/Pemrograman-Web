@@ -14,6 +14,8 @@ include __DIR__ . '/../includes/header.php';
 <h2>Login Petugas</h2>
 
 <form action="proses_login.php" method="POST">
+    <?php echo csrf_field(); ?>
+
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
 
